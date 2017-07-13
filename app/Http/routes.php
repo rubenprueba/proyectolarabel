@@ -10,7 +10,18 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+Route::post('/guardaproducto','ProductosController@store');
+    
 Route::get('/', function () {
     return view('welcome');
+    
 });
+Route::get('/productos', function () {
+$productos = DB::table('productos')->paginate(6);
+return view('listadoproductos', ['productos' => $productos]);
+});
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::get('/insertaproducto', 'ProductosController@create');
